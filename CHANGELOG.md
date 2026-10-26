@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+
+- `taskr done <id>` and `taskr remove <id>` no longer fail with "No task with id" for existing tasks. Invalid ids now give a clear error (#1).
+
 ## [0.1.0] - 2026-10-26
 
 ### Added
