@@ -1,0 +1,94 @@
+{
+  "labels": [
+    { "name": "bug", "color": "d73a4a", "description": "Something isn't working" },
+    { "name": "enhancement", "color": "a2eeef", "description": "New feature or request" },
+    { "name": "documentation", "color": "0075ca", "description": "Improvements or additions to documentation" },
+    { "name": "tests", "color": "bfd4f2", "description": "Test coverage" },
+    { "name": "good first issue", "color": "7057ff", "description": "Good for newcomers" },
+    { "name": "difficulty: easy", "color": "c2e0c6", "description": "Small, well-scoped change" },
+    { "name": "difficulty: medium", "color": "fbca04", "description": "Needs some design or several files" },
+    { "name": "difficulty: hard", "color": "b60205", "description": "Larger change, discuss first" }
+  ],
+  "issues": [
+    {
+      "title": "`taskr done <id>` always says the task does not exist",
+      "labels": ["bug", "good first issue", "difficulty: easy"],
+      "body": "**Steps to reproduce**\n\n```\ntaskr add \"Buy milk\"\ntaskr done 1\n```\n\n**Actual:** `Error: No task with id 1`\n\n**Expected:** task 1 is marked as done.\n\n`taskr remove 1` fails the same way. Please add a test that covers the CLI path."
+    },
+    {
+      "title": "Dates in `taskr list` show the wrong month",
+      "labels": ["bug", "good first issue", "difficulty: easy"],
+      "body": "A task created on 26 October shows up as `2026-09-26` in `taskr list`. Tasks created in January show month `00`.\n\nThe existing format tests don't check the date part, so please add one."
+    },
+    {
+      "title": "`taskr list --sort` shows low-priority tasks first",
+      "labels": ["bug", "good first issue", "difficulty: easy"],
+      "body": "I'd expect `--sort` to put the most important (`high`) tasks at the top, but they end up at the bottom."
+    },
+    {
+      "title": "Two tasks can end up with the same id after removing one",
+      "labels": ["bug", "difficulty: medium"],
+      "body": "**Steps to reproduce**\n\n```\ntaskr add a\ntaskr add b\ntaskr remove 1\ntaskr add c\ntaskr list\n```\n\nBoth `b` and `c` now have id `2`, so `taskr done 2` is ambiguous.\n\nIds should be unique and never reused."
+    },
+    {
+      "title": "Only the first `--tag` is used when listing",
+      "labels": ["bug", "difficulty: medium"],
+      "body": "`taskr add` accepts several `--tag` flags, but `taskr list --tag work --tag urgent` silently ignores `urgent`.\n\nProposal: show tasks that have **all** the given tags. Update the README to describe the behaviour."
+    },
+    {
+      "title": "Corrupted task file crashes with a raw JSON error",
+      "labels": ["bug", "difficulty: easy"],
+      "body": "If `~/.taskr.json` contains invalid JSON, every command crashes with `Unexpected token ... in JSON`.\n\nIt should print a clear message that names the file path and suggests how to fix it, without overwriting the user's data."
+    },
+    {
+      "title": "Add an `edit` command",
+      "labels": ["enhancement", "difficulty: medium"],
+      "body": "Allow changing a task's title, priority or tags:\n\n```\ntaskr edit 3 --title \"New title\" --priority high\n```\n\nShould include tests and README/help updates."
+    },
+    {
+      "title": "Support due dates",
+      "labels": ["enhancement", "difficulty: hard"],
+      "body": "Add `--due YYYY-MM-DD` to `add`, show the due date in `list`, highlight overdue tasks, and add `taskr list --overdue`.\n\nPlease comment with a design proposal before starting: how is it stored, how are invalid dates handled, and how does it interact with `--sort`?"
+    },
+    {
+      "title": "Add `--json` output to `taskr list`",
+      "labels": ["enhancement", "good first issue", "difficulty: easy"],
+      "body": "For scripting, `taskr list --json` should print the filtered tasks as a JSON array instead of the human-readable format."
+    },
+    {
+      "title": "Add a `clear` command to delete completed tasks",
+      "labels": ["enhancement", "difficulty: easy"],
+      "body": "`taskr clear` removes all tasks marked as done and prints how many were removed."
+    },
+    {
+      "title": "Add `taskr search <text>`",
+      "labels": ["enhancement", "difficulty: medium"],
+      "body": "Case-insensitive search over task titles and tags. Should combine with `--pending`."
+    },
+    {
+      "title": "Tag filtering should be case-insensitive",
+      "labels": ["enhancement", "good first issue", "difficulty: easy"],
+      "body": "`taskr list --tag Work` doesn't match tasks tagged `work`. Tags should be compared case-insensitively."
+    },
+    {
+      "title": "Add tests for `src/storage.js`",
+      "labels": ["tests", "good first issue", "difficulty: easy"],
+      "body": "`load` and `save` have no tests. Cover: missing file returns `[]`, round-trip save/load, custom path. Use a temporary directory (`fs.mkdtempSync` + `os.tmpdir()`), never the real home directory."
+    },
+    {
+      "title": "Add end-to-end tests for the CLI",
+      "labels": ["tests", "difficulty: medium"],
+      "body": "Nothing tests `bin/taskr.js` today. Add tests that spawn the CLI with `child_process` and a temporary `TASKR_FILE`, covering each command and the error exit code."
+    },
+    {
+      "title": "Document the library API",
+      "labels": ["documentation", "good first issue", "difficulty: easy"],
+      "body": "The README has one short library example. Add a section (or `docs/API.md`) documenting every exported function: parameters, return value and errors thrown."
+    },
+    {
+      "title": "Add a FAQ / troubleshooting section to the README",
+      "labels": ["documentation", "difficulty: easy"],
+      "body": "Cover: where tasks are stored, how to back them up, how to use a per-project task file with `TASKR_FILE`, and what to do if `taskr` isn't found after `npm link`."
+    }
+  ]
+}

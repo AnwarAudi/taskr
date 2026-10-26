@@ -1,0 +1,20 @@
+{
+  "name": "taskr",
+  "version": "0.1.0",
+  "description": "A tiny, zero-dependency command-line task manager.",
+  "type": "module",
+  "bin": {
+    "taskr": "./bin/taskr.js"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "node --test test/",
+    "lint": "node scripts/lint.js",
+    "start": "node bin/taskr.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": ["todo", "tasks", "cli"],
+  "license": "MIT"
+}

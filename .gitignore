@@ -1,0 +1,4 @@
+node_modules/
+.taskr.json
+*.log
+.DS_Store
