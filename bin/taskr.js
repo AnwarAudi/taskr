@@ -21,6 +21,15 @@ Usage:
   taskr help
 `;
 
+// Task ids are numbers, but arrive from the command line as strings.
+function parseId(value) {
+  const id = Number(value);
+  if (!/^\d+$/.test(value ?? '') || id < 1) {
+    throw new Error(`Invalid task id "${value ?? ''}". Expected a positive whole number.`);
+  }
+  return id;
+}
+
 function main(argv) {
   const [command, ...rest] = argv;
   const { values, positionals } = parseArgs({
@@ -51,15 +60,17 @@ function main(argv) {
       break;
     }
     case 'done': {
-      tasks = completeTask(tasks, positionals[0]);
+      const id = parseId(positionals[0]);
+      tasks = completeTask(tasks, id);
       save(tasks);
-      console.log(`Completed task ${positionals[0]}`);
+      console.log(`Completed task ${id}`);
       break;
     }
     case 'remove': {
-      tasks = removeTask(tasks, positionals[0]);
+      const id = parseId(positionals[0]);
+      tasks = removeTask(tasks, id);
       save(tasks);
-      console.log(`Removed task ${positionals[0]}`);
+      console.log(`Removed task ${id}`);
       break;
     }
     case 'help':
