@@ -58,7 +58,7 @@ In a single JSON file: `~/.taskr.json` by default, or whatever path `TASKR_FILE`
 TASKR_FILE=./project-tasks.json taskr list
 ```
 
-**Every command fails with a JSON error (e.g. `Error: Expected property name ... in JSON at position ...`)**
+**Every command fails with a JSON error**
 
 The tasks file has been corrupted, usually by a manual edit. Open it and fix the JSON, or restore it from a backup. If you don't need its contents, delete or rename the file and taskr will start a fresh, empty list.
 
@@ -73,10 +73,6 @@ Priority must be exactly `low`, `medium` or `high` (lowercase). If you leave it 
 **A task I finished isn't showing up**
 
 You're probably using `--pending`, which hides completed tasks. Run `taskr list` without it to see everything.
-
-**Can I filter by more than one tag?**
-
-Not yet: `taskr list` uses the first `--tag` you pass. You can still give a task several tags when adding it (`--tag work --tag urgent`).
 
 **`Error: Unknown option '-...'` when adding a task**
 
